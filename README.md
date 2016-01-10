@@ -221,7 +221,7 @@ The path to a manifest that specifies the list of files that are to be uploaded 
 Default: `context.manifestPath`
 
 #### revisionKey: 
-The revision key of this deployment. By defailt, the revision key is appended to the name and version of the package archive to uniquely identify each package. By default, the plugin will try to use revision data provided by [ember-cli-deploy-revision-data](https://github.com/ember-cli-deploy/ember-cli-deploy-revision-data)
+The revision key of this deployment. By default, the revision key is appended to the name and version of the package archive to uniquely identify each package. By default, the plugin will try to use revision data provided by [ember-cli-deploy-revision-data](https://github.com/ember-cli-deploy/ember-cli-deploy-revision-data)
 
 Default: `context.revisionData + context.revisionData.timestamp`
 
@@ -236,7 +236,7 @@ Default: `context.revisionData + context.revisionData.timestamp`
 3. [AWS S3 Code Deploy Service Construction Options](http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/CodeDeploy.html#constructor-property)
 4. [AWS S3 Code Deploy Create Deployment Options](http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/CodeDeploy.html#createDeployment-property)
 
-The following three options simply configuration if just want to use the default behaviour. By default, the plugin will use the values configured here for both S3 and Code deploy client. If you want to override settings for S3 and Code Deploy client individually, use the advanced configuration options. 
+For simple setup, you only to need to specify the three options below. By default, the plugin will use the values configured here for both S3 and Code deploy client. If you want to override settings for S3 and Code Deploy client individually, use the advanced configuration options. 
 #### accessKeyId
 The accessKeyId you want to use to connect to both S3 and Code Deploy services. The user must have appropriate permissions on respective services. By default this will be the user/accessKeyId used to connect to *both* S3 and Code Deploy services.
 
@@ -244,7 +244,7 @@ The accessKeyId you want to use to connect to both S3 and Code Deploy services. 
 Your secret access key for accessKeyId above.
 
 #### region: 
-Region associated with your EC2 instance, S3 Bucket and Code Deploy. By default, the same region will be used for S3 and Code Deploy. If you want to override settings for S3 and Code Deploy client individually, use advanced configuration below. Please note that if you are using different regions, the setup must be supported on AWS.
+Region associated with your EC2 instance, S3 Bucket and Code Deploy. By default, the same region will be used for S3 and Code Deploy. If you want to override settings for S3 and Code Deploy client individually, use advanced configuration desribed later in this document. Please note that if you are using different regions, the setup must be supported on AWS.
 
 
 
@@ -254,7 +254,7 @@ The options customize the behavior of the `PutObject` call used to upload the ar
 * Bucket: 'STRING_VALUE', /* required */
 * Key: 'STRING_VALUE', 
 * ACL: 'private | public-read | public-read-write | authenticated-read | aws-exec-read | bucket-owner-read | bucket-owner-full-control',
-* Body: new Buffer('...') || 'STRING_VALUE' || streamObject,
+* Body: new Buffer('...') || 'STRING_VALUE' || streamObject, //This is populated automatically by the plugin.
 * CacheControl: 'STRING_VALUE',
 * ContentDisposition: 'STRING_VALUE',
 * ContentEncoding: 'STRING_VALUE',
@@ -270,7 +270,7 @@ The options customize the behavior of the `PutObject` call used to upload the ar
 * Metadata:
 ```javascript
  {someKey: 'STRING_VALUE',
-    		/* anotherKey: ... */
+	/* anotherKey: ... */
   },
 ```
 * RequestPayer: 'requester',
@@ -285,23 +285,19 @@ The options customize the behavior of the `PutObject` call used to upload the ar
 
 
 #### awsDeploymentOptions
-A container object for all AWS Code Deploy related options. These options control the deployment that is created and triggered on AWS Code Deploy. These options are passed on to the `createDeployment` method of the AWS Code Deploy client library. Full a detailed explanation of each of these options, refers to the [Code Deploy SDK documentation](http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/CodeDeploy.html#createDeployment-property). The only option that are required are deploymentGroupName and revision.revisionType. Please note that application name defaults to the name of the application as configured in package.json of your project. Supported options are:
+A container object for all AWS Code Deploy related options. These options control the deployment that is created and triggered on AWS Code Deploy. These options are passed on to the `createDeployment` method of the AWS Code Deploy client library. Full a detailed explanation of each of these options, refers to the [Code Deploy SDK documentation](http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/CodeDeploy.html#createDeployment-property). The only option that are required are `deploymentGroupName` and `revision.revisionType`. Please note that application name defaults to the name of the application as configured in package.json of your project. Supported options are:
 
 
-* applicationName: 'STRING_VALUE'
-  	Defaults to pkg.name as specified in package.json
+* applicationName: 'STRING_VALUE'. Defaults to `pkg.name` as specified in package.json
 
-* deploymentConfigName: 'STRING_VALUE'
-  	Name of the deployment configuration as configured in your AWS Code Deploy configuration.
+* deploymentConfigName: 'STRING_VALUE'. Name of the deployment configuration as configured in your AWS Code Deploy configuration.
 
-* deploymentGroupName: 'STRING_VALUE' (Required)
-	Name of the deployment group as configured in your Code Deploy configuration 
-* description: 'STRING_VALUE'
-	Description for this deployment.
-* ignoreApplicationStopFailures: true || false
-	Controls whether or not to ignore any errors when the application is stopped for deployment.
+* deploymentGroupName: 'STRING_VALUE' (Required). Name of the deployment group as configured in your Code Deploy configuration 
+* description: 'STRING_VALUE'. Description for this deployment.
+* ignoreApplicationStopFailures: true || false. Controls whether or not to ignore any errors when the application is stopped for deployment.
 * revision:
 	Use this option to speicify whether the application is archived and deployed as an 'S3' archive or is deployed via GitHub repository. The default is to use S3. If you want to deploy via GitHub, set revisionType parameter below to 'GitHub' and specify commitId and repository in the 'gitHubLocation' object.
+```javascript
  {
     revisionType: 'S3 | GitHub',
     gitHubLocation: {
@@ -317,7 +313,8 @@ A container object for all AWS Code Deploy related options. These options contro
       version: 'STRING_VALUE'
     }
   }
-	* revisionType: used to specify the location of the deployment - whether to deploy from S3 or from GitHub. Valid values are 'S3' and 'GitHub'. You may need to perform additional configuration in case of GitHub location e.g. security. Refer to this [Deploy a revision with AWS Code Deploy](http://docs.aws.amazon.com/codedeploy/latest/userguide/how-to-deploy-revision.html)
+  ```
+	* revisionType (*Required*): Use this to specify the location of the deployment - whether to deploy from S3 or from GitHub. Valid values are 'S3' and 'GitHub'. You may need to perform additional configuration in case of GitHub location e.g. security. Refer to this [Deploy a revision with AWS Code Deploy](http://docs.aws.amazon.com/codedeploy/latest/userguide/how-to-deploy-revision.html)
 	
 	* gitHubLocation: Used to specify the location of GitHub repository if deploying from GitHub(`revision.revisionType==='GitHub'`)
 	
@@ -328,13 +325,9 @@ A container object for all AWS Code Deploy related options. These options contro
 	* s3Location: If you are deploying via S3 (`revision.revisionType==='S3'`), this configuration object specifies the details of S3 object that is used deployment. The only required/mandatory option in this object is the name of the S3 bucket(`bucket`). All other options are filled in by the plugin automatically. However, if you do specify these options manually - the custom configuration takes precendence. The following options are supported.
 	
 		* bucket: The name of the S3 bucket where to look for the deployment archive.
-	
 		* bundleType: The type of archive that is being deployed. Valid options are zip and tar. tgz is not supported at this point.
-	
 		* eTag: the ETag of the archive on S3 to deploy.
-	
 		* key: The key (file/path) name of the archive to use for deployment
-	
 		* version: the file version to use for deployment.
 
 #### awsS3ServiceOptions
@@ -379,3 +372,5 @@ Ensure you have the minimum required permissions configured for the user (access
 
 Replace with the name of the actual bucket you are deploying to. Also, remember that "PutObject" permission will effectively overwrite any existing files with the same name unless you use a fingerprinting or a manifest plugin.
 
+## Acknowledgements
+* Luke Melia @ https://github.com/lukemelia
