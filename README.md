@@ -191,6 +191,7 @@ The behaviour of the plugin can be customized using the options documented below
 
 #### filePattern: 
 If deploying via S3, this option determines what files from local deployment directory (dist) will be included in the archive that is uploaded to S3.
+
 Default pattern: `**/*.{js,css,png,gif,ico,jpg,map,xml,txt,svg,swf,eot,ttf,woff,woff2,yml,html,htm}` 
 
 #### basePackageName: 
