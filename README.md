@@ -304,7 +304,6 @@ A container object for all AWS Code Deploy related options. These options contro
       commitId: 'STRING_VALUE',
       repository: 'STRING_VALUE'
     },
-    
     s3Location: {
       bucket: 'STRING_VALUE',
       bundleType: 'tar | zip',
@@ -313,10 +312,8 @@ A container object for all AWS Code Deploy related options. These options contro
       version: 'STRING_VALUE'
     }
   }
-  
-  ```
-	
-	* revisionType (*Required*): Use this to specify the location of the deployment - whether to deploy from S3 or from GitHub. Valid values are 'S3' and 'GitHub'. You may need to perform additional configuration in case of GitHub location e.g. security. Refer to this [Deploy a revision with AWS Code Deploy](http://docs.aws.amazon.com/codedeploy/latest/userguide/how-to-deploy-revision.html)
+```
+* revisionType (*Required*): Use this to specify the location of the deployment - whether to deploy from S3 or from GitHub. Valid values are 'S3' and 'GitHub'. You may need to perform additional configuration in case of GitHub location e.g. security. Refer to this [Deploy a revision with AWS Code Deploy](http://docs.aws.amazon.com/codedeploy/latest/userguide/how-to-deploy-revision.html)
 	
 	* gitHubLocation: Used to specify the location of GitHub repository if deploying from GitHub(`revision.revisionType==='GitHub'`)
 	
