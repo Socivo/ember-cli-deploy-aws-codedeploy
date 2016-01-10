@@ -195,14 +195,15 @@ If deploying via S3, this option determines what files from local deployment dir
 Default pattern: `**/*.{js,css,png,gif,ico,jpg,map,xml,txt,svg,swf,eot,ttf,woff,woff2,yml,html,htm}` 
 
 #### basePackageName: 
-By default, the plugin will create an archive called 'pgk.name-pkg.version-githubRevisionKey-currentTimeStamp'. The plugin reads `pkg.name` and `pkg.version` from `package.json` in your project and reads GitHub revision key using [ember-cli-deploy-revision-data](https://github.com/ember-cli-deploy/ember-cli-deploy-revision-data) plugin.
+By default, the plugin will create an archive called `pkg.name-pkg.version-githubRevisionKey-currentTimeStamp`. The plugin reads `pkg.name` and `pkg.version` from `package.json` in your project and reads GitHub revision key using [ember-cli-deploy-revision-data](https://github.com/ember-cli-deploy/ember-cli-deploy-revision-data) plugin.
 
 #### archiveType: 
 The format of the archive file that will be created and uploaded to S3 bucket. Supported options are 'zip' and 'tar'.
+
 Default: 'zip'
 
 #### archiveTempDirectory: 
-The temporary directory where the archive will be created. Default value is 'aws-deploy' in project root. 
+The temporary directory where the archive will be created. Default value is 'tmp' in project root. 
 
 #### distDir: 
 The root directory where the files matching filePattern will be searched for. By default, this option will use the distDir property of the deployment context, provided by [ember-cli-deploy-build](https://github.com/ember-cli-deploy/ember-cli-deploy-build).
