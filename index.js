@@ -12,8 +12,7 @@ module.exports = {
         var DeployPlugin = DeployPluginBase.extend({
             name: options.name,
             defaultConfig: {
-                //filePattern: '**/*.{js,css,png,gif,ico,jpg,map,xml,txt,svg,swf,eot,ttf,woff,woff2,yml,html,htm}',
-                filePattern: '**/*.{html}',
+                filePattern: '**/*.{js,css,png,gif,ico,jpg,map,xml,txt,svg,swf,eot,ttf,woff,woff2,yml,html,htm}',
                 basePackageName: this.project.pkg.name + '-' + this.project.pkg.version,
                 archiveType: 'zip',
                 archiveTempDirectory: 'tmp',
