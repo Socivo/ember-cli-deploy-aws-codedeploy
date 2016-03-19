@@ -1,7 +1,7 @@
 
 {
   "name": "ember-cli-deploy-aws-codedeploy",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "AWS Code Deploy plugin for Ember CLI",
   "directories": {
     "doc": "doc",

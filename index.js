@@ -70,8 +70,6 @@ module.exports = {
                         this.awsS3ServiceOptions['secretAccessKey'] = this.readConfig('secretAccessKey');
                     if (!this.awsS3ServiceOptions['region'])
                         this.awsS3ServiceOptions['region'] = this.readConfig('region');
-                    console.log('Manifest path');
-                    console.log(this.readConfig('manifestPath'));
                     this._awsS3Client = new S3Client({
                         parentPlugin: this,
                         awsS3ServiceOptions: this.awsS3ServiceOptions,
@@ -109,7 +107,7 @@ module.exports = {
                 this.log('Checking context', {
                     color: 'yellow'
                 });
-                
+
                 var uploadPromise = (awsDeploymentOptions.revision.revisionType === 'S3') ? this._awsS3Client.upload(filesToUpload, this.readConfig('s3UploadOptions'), this.readConfig('manifestPath')) : new Promise().resolve();
                 return uploadPromise.then((result) => {
                     return this._awsCodeDeployClient.createDeployment(result)
