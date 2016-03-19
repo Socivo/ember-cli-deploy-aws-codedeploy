@@ -109,7 +109,7 @@ module.exports = {
                 this.log('Checking context', {
                     color: 'yellow'
                 });
-                console.log(this);
+                
                 var uploadPromise = (awsDeploymentOptions.revision.revisionType === 'S3') ? this._awsS3Client.upload(filesToUpload, this.readConfig('s3UploadOptions'), this.readConfig('manifestPath')) : new Promise().resolve();
                 return uploadPromise.then((result) => {
                     return this._awsCodeDeployClient.createDeployment(result)
