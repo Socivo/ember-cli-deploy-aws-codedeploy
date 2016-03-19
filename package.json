@@ -1,3 +1,4 @@
+
 {
   "name": "ember-cli-deploy-aws-codedeploy",
   "version": "0.0.1",
@@ -44,6 +45,7 @@
     "ember-cli-deploy-plugin"
   ],
   "dependencies": {
+    "archiver": "^0.21.0",
     "aws-sdk": "^2.2.26",
     "core-object": "^1.1.0",
     "ember-cli-babel": "^5.1.5",
@@ -51,7 +53,9 @@
     "mkdirp": "^0.5.1"
   },
   "ember-addon": {
-    "configPath": "tests/dummy/config"
+    "configPath": "tests/dummy/config",
+    "after":["ember-cli-deploy-revision-data","ember-cli-deploy-manifest","ember-cli-deploy-build"]
+
   },
   "maintainers": [
     {
